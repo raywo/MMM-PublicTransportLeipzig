@@ -1,0 +1,150 @@
+.ptbWrapper {
+    position: relative;
+}
+
+.ptbTable {
+    display: table;
+    border-collapse: collapse;
+    border-spacing: 1px;
+}
+
+.ruleCell {
+    line-height: 0;
+    border-spacing: 10px;
+    border-bottom: 1px dotted #666;
+}
+
+.lineCell {
+    width: 2.5em;
+    height: 1.25em;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.timeCell {
+    width: 1em;
+}
+
+.delayTimeCell {
+    font-size: 16px;
+    font-weight: bolder;
+    padding-left: 3px;
+    padding-right: 5px;
+    width: 1.1em;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.directionCell {
+    max-width: 22ch;
+}
+
+.marquee {
+    margin: 0 auto;
+    white-space: nowrap;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.marquee span {
+    display: inline-block;
+    white-space:nowrap;
+    padding-left: 100%;
+    text-indent: 0;
+    animation: marquee 15s linear infinite;
+}
+
+.marqueeStop {
+    animation-play-state: paused
+}
+
+@keyframes marquee {
+    0%   { transform: translate(0, 0); }
+    100% { transform: translate(-100%, 0); }
+}
+
+.centeredTd {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.noPadding {
+    padding: 0;
+}
+
+.ellipsis {
+    position: absolute;
+    background-color: #F414A0;
+    width: 300px;
+    height: 100px;
+    border: 2px;
+    border-radius: 150px;
+}
+
+.sign {
+  font-weight: bold;
+  text-align: center;
+  width: 4.3em;
+  height: 1.25em;
+  position: relative;
+  border-radius: 0.075em;
+}
+
+.s1, .s2, .s3, .s4, .s5, .s5x, .s6 {
+  color: white;
+  background-color: #1E944B;
+  border-radius: 1.25em;
+}
+
+.str1, .str3, .str3e {
+  color: white;
+  background-color: #5EB246;
+}
+
+.str2, .str8, .str9  {
+  color: black;
+  background-color: #F8C623;
+}
+
+.str14 {
+  color: black;
+  background-color: #00A8DB;
+}
+
+.str4, .str7, .str12, .str15 {
+  color: white;
+  background-color: #174489;
+}
+
+.str10, .str11, .str16 {
+  color: white;
+  background-color: #D8232A;
+}
+
+.bus65,
+.bus70, .bus72, .bus73, .bus73e, .bus74, .bus74e,
+.bus80, .bus81, .bus82, .bus89,
+.bus90 {
+  color: white;
+  background-color: #912A7D;
+}
+
+.bus61, .bus63,
+.bus75, .bus79,
+.bus83, .bus86, .bus87, .bus88,
+.bus91, .bus91e,
+.bus100, .bus105, .bus106, .bus107, .bus108,
+.bus120, .bus130, .bus131, .bus135, .bus141, .bus145,
+.bus161, .bus163, .bus164, .bus165,
+.bus172, .bus175, .bus176,
+.bus190, .bus191, .bus192, .bus195, .bus196, .bus197,
+.bus202, .bus207, .bus215,
+.bus412,
+.bus645, .bus690, .bus691,
+.bus724, .bus743 {
+  color: white;
+  background-color: #A3A3A2;
+}

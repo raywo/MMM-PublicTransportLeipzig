@@ -1,0 +1,35 @@
+{
+  "name": "MMM-PublicTransportLeipzig",
+  "version": "0.3.0",
+  "description": "LVB-client driven public transport module for MagicMirror 2.",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    "magic mirror",
+    "magic mirror 2",
+    "smart mirror",
+    "public transport",
+    "public transport Leipzig",
+    "module"
+  ],
+  "author": {
+    "name": "raywo",
+    "email": "",
+    "url": ""
+  },
+  "contributors": "https://github.com/raywo/MMM-PublicTransportLeipzig/graphs/contributors",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/deg0nz/MMM-PublicTransportLeipzig/issues"
+  },
+  "homepage": "https://github.com/deg0nz/MMM-PublicTransportLeipzig",
+  "engines": {
+    "node": ">=6"
+  },
+  "dependencies": {
+    "lodash.isobject": "^3.0.2",
+    "lvb": "0.0.2"
+  }
+}
