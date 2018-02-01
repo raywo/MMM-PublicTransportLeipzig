@@ -1,27 +1,19 @@
-/*noinspection CssUnusedSymbol*/
 .ptbWrapper {
     position: relative;
 }
 
-/*noinspection CssUnusedSymbol*/
 .ptbTable {
     display: table;
     border-collapse: collapse;
     border-spacing: 1px;
 }
 
-.ptbTable > thead {
-  text-align: left;
-}
-
-/*noinspection CssUnusedSymbol*/
 .ruleCell {
     line-height: 0;
     border-spacing: 10px;
     border-bottom: 1px dotted #666;
 }
 
-/*noinspection CssUnusedSymbol*/
 .lineCell {
     width: 2.5em;
     height: 1.25em;
@@ -31,12 +23,10 @@
     margin-right: 0;
 }
 
-/*noinspection CssUnusedSymbol*/
 .timeCell {
     width: 1em;
 }
 
-/*noinspection CssUnusedSymbol*/
 .delayTimeCell {
     font-size: 16px;
     font-weight: bolder;
@@ -47,12 +37,10 @@
     white-space: nowrap;
 }
 
-/*noinspection CssUnusedSymbol*/
 .directionCell {
     max-width: 22ch;
 }
 
-/*noinspection CssUnusedSymbol*/
 .marquee {
     margin: 0 auto;
     white-space: nowrap;
@@ -68,7 +56,6 @@
     animation: marquee 15s linear infinite;
 }
 
-/*noinspection CssUnusedSymbol*/
 .marqueeStop {
     animation-play-state: paused
 }
@@ -78,19 +65,16 @@
     100% { transform: translate(-100%, 0); }
 }
 
-/*noinspection CssUnusedSymbol*/
 .centeredTd {
     display: table-cell;
     text-align: center;
     vertical-align: middle;
 }
 
-/*noinspection CssUnusedSymbol*/
 .noPadding {
     padding: 0;
 }
 
-/*noinspection CssUnusedSymbol*/
 .ellipsis {
     position: absolute;
     background-color: #F414A0;
@@ -100,7 +84,6 @@
     border-radius: 150px;
 }
 
-/*noinspection CssUnusedSymbol*/
 .sign {
   font-weight: bold;
   text-align: center;
@@ -108,47 +91,39 @@
   height: 1.25em;
   position: relative;
   border-radius: 0.075em;
-  margin-right: 0.5em;
 }
 
-/*noinspection CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol*/
 .s1, .s2, .s3, .s4, .s5, .s5x, .s6 {
   color: white;
   background-color: #1E944B;
   border-radius: 1.25em;
 }
 
-/*noinspection CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol*/
 .str1, .str3, .str3e {
   color: white;
   background-color: #5EB246;
 }
 
-/*noinspection CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol*/
 .str2, .str8, .str9  {
   color: black;
   background-color: #F8C623;
 }
 
-/*noinspection CssUnusedSymbol*/
 .str14 {
   color: black;
   background-color: #00A8DB;
 }
 
-/*noinspection CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol*/
 .str4, .str7, .str12, .str15 {
   color: white;
   background-color: #174489;
 }
 
-/*noinspection CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol*/
 .str10, .str11, .str16 {
   color: white;
   background-color: #D8232A;
 }
 
-/*noinspection CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol*/
 .bus65,
 .bus70, .bus72, .bus73, .bus73e, .bus74, .bus74e,
 .bus80, .bus81, .bus82, .bus89,
@@ -157,7 +132,6 @@
   background-color: #912A7D;
 }
 
-/*noinspection CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol,CssUnusedSymbol*/
 .bus61, .bus63,
 .bus75, .bus79,
 .bus83, .bus86, .bus87, .bus88,

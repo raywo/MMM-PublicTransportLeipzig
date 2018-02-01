@@ -1,5 +1,4 @@
 "use strict";
-// noinspection Annotator
 const lvbClient = require('lvb');
 
 let LvbFetcher = function (config) {
@@ -29,13 +28,14 @@ LvbFetcher.prototype.fetchDepartures = function () {
 // Helper Functions
 
 LvbFetcher.prototype.getDepartureTime = function () {
-  // when value for a request is calculated to be 5 minutes before timeToStation time
+  // when value for a request is calculated to be 5 minutes before delay time
   // so we can also show the non-reachable departures in the module
+
   let when;
 
-  if (this.config.timeToStation > 0) {
+  if (this.config.delay > 0) {
     when = new Date();
-    when.setTime((Date.now() + this.config.timeToStation * 60000) - (5 * 60000));
+    when.setTime((Date.now() + this.config.delay * 60000) - (5 * 60000));
   } else {
     when = Date.now();
   }
@@ -60,7 +60,7 @@ LvbFetcher.prototype.processData = function (data) {
   };
 
   data.forEach((row) => {
-    let departures = this.createDeparturesForLine(row);
+    let departures = this.createDepartures(row);
 
     departures.forEach((current) => {
       departuresData.departuresArray.push(current);
@@ -68,12 +68,10 @@ LvbFetcher.prototype.processData = function (data) {
   });
 
   departuresData.departuresArray.sort(compareTimes);
-
   return departuresData;
 };
 
-
-LvbFetcher.prototype.createDeparturesForLine = function(lineInDirection) {
+LvbFetcher.prototype.createDepartures = function(lineInDirection) {
   let departures = [];
 
   let name = lineInDirection.line.name.replace(/\s\s+/g, ' ');
@@ -104,10 +102,10 @@ LvbFetcher.prototype.createDeparturesForLine = function(lineInDirection) {
 };
 
 LvbFetcher.prototype.isValidDeparture = function (type, name, direction) {
-  let isExcludedType = this.config.excludedTransportationTypes.includes(type);
+  let isExcludedType = this.config.excludedTransportationTypes.includes(type)
   let isIgnoredLine = this.config.ignoredLines.includes(name);
 
-  let isInDirection = this.config.directions.length === 0;
+  let isInDirection = false
 
   this.config.directions.forEach((allowedDirection) => {
     isInDirection = isInDirection || direction.includes(allowedDirection);
@@ -120,7 +118,6 @@ function getWhen(departureTime) {
   return departureTime.departure;
 }
 
-
 function getDelay(departureTime) {
   let delay = departureTime.departureDelay;
 
@@ -132,7 +129,6 @@ function getDelay(departureTime) {
 
   return delay;
 }
-
 
 function compareTimes(a, b) {
   let timeA = a.when.getTime() + a.delay;
@@ -148,16 +144,14 @@ function compareTimes(a, b) {
   return 0
 }
 
-
 // helper function to print departure for debugging
 function printDeparture(departure) {
   console.log("departure: ");
 
-  let timeToStation = departure.timeToStation;
+  let delay = departure.delay;
   let time = departure.when.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
 
-  console.log("(" + departure.type + ") " + departure.name + " (" + departure.nr + "): " + departure.direction + " – departure: " + time + " +" + timeToStation);
+  console.log("(" + departure.type + ") " + departure.name + " (" + departure.nr + "): " + departure.direction + " – departure: " + time + " +" + departure.delay);
 }
 
-// noinspection Annotator
 module.exports = LvbFetcher;
