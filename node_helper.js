@@ -29,6 +29,7 @@ module.exports = NodeHelper.create({
   },
 
   sendInit: function (fetcher) {
+    // noinspection Annotator
     this.sendSocketNotification('FETCHER_INIT', {
       stationId: fetcher.getStationId(),
       stationName: fetcher.getStationName()
@@ -75,9 +76,7 @@ module.exports = NodeHelper.create({
   },
 
   getCssClass: function (lineNumber) {
-    let cssClass = "sign " + lineNumber.replace(/\s/g, '').toLowerCase();
-
-    return cssClass;
+    return "sign " + lineNumber.replace(/\s/g, '').toLowerCase();
   },
 
   socketNotificationReceived: function (notification, payload) {
