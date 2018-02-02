@@ -1,23 +1,24 @@
-# MMM-PublicTransportBerlin
+# MMM-PublicTransportLeipzig
 
-MMM-PublicTransportBerlin is a module for the [MagicMirror](https://github.com/MichMich/MagicMirror) project by 
+MMM-PublicTransportLeipzig is a module for the [MagicMirror](https://github.com/MichMich/MagicMirror) project by 
 [Michael Teeuw](https://github.com/MichMich).
 
-It shows live public transport information for Berlin and Brandenburg based on [VBB-Hafas](http://www.hafas.de/company/referenzen/vbb) data.
-Since it uses VBB data, the whole transport network is covered. So public transport in Brandenburg will work as well. 
-MMM-PublicTransportBerlin uses the [vbb-hafas](https://github.com/derhuerst/vbb-hafas) REST API by [derhuerst](https://github.com/derhuerst).
+It shows live public transport information for Leibzig based on LVB (Leipziger Verkehrsbetriebe) data.  
+MMM-PublicTransportLeipzig uses the [lvb](https://github.com/juliuste/lvb) REST API by [juliuste](https://github.com/juliuste).
 
-*Notes:* 
-* *The module is working fine. But I think some value combinations could still lead to strange behaviour. I'd appreciate any error report.*
+**Notes:** 
+*The module is working fine. But there are some known issues. (See [Known Issues](#Known-Issues).)*
 
-You can enter a delay time for "How long does it take to get to my station?". 
-Then the module calculates the next reachable departures and draws a line between reachable and unreachable departures.
+## How it works
+After you installed MMM-PublicTransportLeipzig you just configure it to your needs and that’s it. The only config you really need to set is the station you want to display. Everything else is covered by defaults but can be configured by you anyway. For instance you can enter a time you need to get to the station (``timeToStation`` in config). Then the module calculates the next reachable departures and draws a line between reachable and unreachable departures.
+
+For details see the [Configuration](#configuration) section.
 
 ## Screenshot
 
-The module looks like this:
+![Example for Wilhelm-Leuschner-Platz with time to station](img/MMM-PublicTransport_screenshot.png)
 
-![Example for Alexanderplatz with time delay](img/MMM-PublicTransport_screenshot.png)
+The screenshot shows departures from Wilhelm-Leuschner-Platz where the first two are not reachable due to the ``timeToStation`` setting.
 
 ## Preconditions
 
@@ -30,14 +31,14 @@ The module looks like this:
 Just clone the module into your MagicMirror modules folder and execute `npm install` in the module's directory:
 
 ```
-git clone https://github.com/deg0nz/MMM-PublicTransportBerlin.git
-cd MMM-PublicTransportBerlin
+git clone https://github.com/raywo/MMM-PublicTransportLeipzig.git
+cd MMM-PublicTransportLeipzig
 npm install
 ```
 
 ## Update
 
-Just enter your MMM-PublicTransportBerlin folder in the MagicMirror's modules folder and execute the following commands in the module's directory:
+Just enter your MMM-PublicTransportLeipzig folder in the MagicMirror's modules folder and execute the following commands in the module's directory:
 
 ```
 git pull
@@ -46,16 +47,32 @@ npm install
 
 ## How to get the `stationId`
 
-You will need a `stationId` for your module. You can get it as described in the [vbb-rest API documentation](https://github.com/derhuerst/vbb-rest/blob/21930eb2442ecdc8888e70d024391be29264f33f/docs/index.md).    
-This is a cURL example for getting all possible stations with the keyword "alexanderplatz":
+You can provide a station name or a station ID to define your departure station. If your station has a `stationID` it is recommended to use it. If not you can be lucky and get away with just providing the station name. (See [Known Issues](#Knwon-Issues).)
+
+For your convenience there is a script in the MMM-PublicTransportLeipzig folder you can edit and execute to get the `stationID` for your station.
+
+Find the file `stationID_Query.js` and edit the second line and fill in the name of your station: 
 
 ```
-curl 'https://vbb.transport.rest/stations?query=alexanderplatz'
+// Enter your station name here:
+const stationName = "Goerdelerring";
 ```
 
-The answer should contain one or more possible stations with valid station IDs. More queries are possible, 
-like searching via coordinates or autocompletion of stations. Please check the [vbb-rest API documentation](https://github.com/derhuerst/vbb-rest/blob/21930eb2442ecdc8888e70d024391be29264f33f/docs/index.md)
-for more options.
+The result will look like this:
+
+```
+[ { id: '12996',
+    type: 'station',
+    name: 'Leipzig, Goerdelerring',
+    coordinates: { longitude: 12.372838780123, latitude: 51.344361907514 } } ]
+```
+
+The number noted after `id` is your `stationID` (in this case 12996).
+
+If this query returns more than one result you have to pick the right station and you must provide the `stationID` in the config or else the module won’t work.    
+
+For some station names the query will return `[]`. This means the station is not known by the api.
+
 
 ## Configuration
 
@@ -88,7 +105,7 @@ Here is an example of an entry in `config.js`:
 
 ``` JavaScript
 {
-    module: 'MMM-PublicTransportBerlin',
+    module: 'MMM-PublicTransportLeipzig',
     position: 'top_right',
     config: {
         name: "Alexanderplatz",
@@ -117,7 +134,7 @@ Here is an example of an entry in `config.js`:
 
 ## Multiple Modules
 
-Multiple instances of this module are possible. Just add another entry of the MMM-PublicTransportBerlin module to the `config.js` of your mirror.
+Multiple instances of this module are possible. Just add another entry of the MMM-PublicTransportLeipzig module to the `config.js` of your mirror.
 
 ## Special Thanks
 
@@ -126,6 +143,16 @@ Multiple instances of this module are possible. Just add another entry of the MM
 You made my life a lot easier with this!
 * The community of [magicmirror.builders](https://magicmirror.builders) for help in the development process and all contributors for finding and fixing errors in this module.
 
+
+## Known Issues
+The API the LVB (Leipziger Verkehrsbetriebe) provides is very basic and has some issues:
+
+* Not all stations have a `stationID` assigned (for instance “Klingerweg”).
+* Some stations are stored with unusal names. For instance “Nonnenstraße” is stored as “Nonnenstr.”
+* Most station which are also suburban (S-Bahn) or long distance train stops cannot be queried.
+
+Stations without an assigned `stationID` can be used as starting points for the module as long as a query for their name returns a single result. In the example above “Klingerweg” has no `stationID` assigned but a stations query for “Klingerweg” returns just one result so it can be used. On the other hand it is not possible to set “Hauptbahnhof” as a starting point for the module. Since “Hauptbahnhof” has no `stationID` assigned and a station query returns multiple results.
+
 ## Issues
 
-If you find any problems, bugs or have questions, please [open a GitHub issue](https://github.com/deg0nz/MMM-PublicTransportBerlin/issues) in this repository.
+If you find any problems, bugs or have questions, please [open a GitHub issue](https://github.com/deg0nz/MMM-PublicTransportLeipzig/issues) in this repository.

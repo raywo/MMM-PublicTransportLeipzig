@@ -8,6 +8,7 @@ module.exports = NodeHelper.create({
     this.departuresFetchers = []
   },
 
+
   createFetcher: function (config) {
     let fetcher;
 
@@ -28,6 +29,7 @@ module.exports = NodeHelper.create({
     this.getDepartures(fetcher.getStationId());
   },
 
+
   sendInit: function (fetcher) {
     this.sendSocketNotification('FETCHER_INIT', {
       stationId: fetcher.getStationId(),
@@ -35,9 +37,9 @@ module.exports = NodeHelper.create({
     });
   },
 
+
   getDepartures: function (stationId) {
     this.departuresFetchers[stationId].fetchDepartures().then((departuresData) => {
-      this.pimpDeparturesArray(departuresData.departuresArray);
       this.sendSocketNotification('DEPARTURES', departuresData);
     }).catch((e) => {
       let error = {};
@@ -49,36 +51,6 @@ module.exports = NodeHelper.create({
     });
   },
 
-  pimpDeparturesArray: function (departuresArray) {
-    let currentProperties = {};
-
-    departuresArray.forEach((current) => {
-      currentProperties = this.getLineProperties(current);
-
-      //if (!this.config.marqueeLongDirections) {
-      //    current.direction = this.trimDirectionString(current.direction);
-      //}
-      current.color = currentProperties.color;
-      current.cssClass = currentProperties.cssClass;
-    });
-
-    return departuresArray;
-  },
-
-  getLineProperties: function (product) {
-    let out = {
-        color: "",
-        cssClass: this.getCssClass(product.nr)
-    };
-
-    return out;
-  },
-
-  getCssClass: function (lineNumber) {
-    let cssClass = "sign " + lineNumber.replace(/\s/g, '').toLowerCase();
-
-    return cssClass;
-  },
 
   socketNotificationReceived: function (notification, payload) {
     if (notification === 'GET_DEPARTURES') {
