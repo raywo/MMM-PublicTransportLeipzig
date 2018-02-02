@@ -1,0 +1,10 @@
+{
+  "LVB_FETCH_ERROR": "Fehler beim Empfangen der Abfahrtzeiten:<br> {errorMessage}",
+  "LVB_ERROR_HINT": "Meistens tritt dieser Fehler auf, wenn die LVB-Seite nicht verfügbar ist,<br> oder die Abfahrtstation nicht existiert.",
+
+  "LVB_NO_DEPARTURES": "Zur Zeit gibt es keine Fahrten.",
+
+  "LVB_DEPARTURE_TIME": "Abfahrt",
+  "LVB_LINE": "Linie",
+  "LVB_TO": "Nach"
+}

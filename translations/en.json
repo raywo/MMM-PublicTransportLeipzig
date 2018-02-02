@@ -1,0 +1,10 @@
+{
+  "LVB_FETCH_ERROR": "Error while fetching departures: {errorMessage}",
+  "LVB_ERROR_HINT": "This could mean that LVB data is currently not available or your departure station is incorrect.",
+
+  "LVB_NO_DEPARTURES": "There are currently no departures.",
+
+  "LVB_DEPARTURE_TIME": "Departure",
+  "LVB_LINE": "Line",
+  "LVB_TO": "To"
+}
