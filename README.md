@@ -47,6 +47,8 @@ npm install
 
 ## How to get the `stationId`
 
+### Happy case
+
 You can provide a station name or a station ID to define your departure station. If your station has a `stationID` it is recommended to use it. If not you can be lucky and get away with just providing the station name. (See [Known Issues](#Knwon-Issues).)
 
 For your convenience there is a script in the MMM-PublicTransportLeipzig folder you can edit and execute to get the `stationID` for your station.
@@ -56,6 +58,12 @@ Find the file `stationID_Query.js` and edit the second line and fill in the name
 ```
 // Enter your station name here:
 const stationName = "Goerdelerring";
+```
+
+Then run the script inside the module folder using 
+
+```
+node stationID_Query.js
 ```
 
 The result will look like this:
@@ -69,9 +77,46 @@ The result will look like this:
 
 The number noted after `id` is your `stationID` (in this case 12996).
 
-If this query returns more than one result you have to pick the right station and you must provide the `stationID` in the config or else the module won’t work.    
+If this query returns more than one result you have to pick the right station and you must provide the `stationID` in the config or else the module won’t work.  
 
-For some station names the query will return `[]`. This means the station is not known by the api.
+### Unhappy case  
+
+For some station names the query will return `[]`. This means the station is not known to the API. The reason may be that you spelled the name wrong or it is known to the API by another name. If you query for “Nonnenstraße” you will get `[]`. If you query for “Nonnenstr.” instead you will get the correct result.
+
+There is a third option: the station name is not known to the API but departures can be queried nevertheless. “Klingerweg” is such an example. The stations query returns `[]` and therefore there is no `stationID` for “Klingerweg” but it is still a valid station name for a departure query. You can test that by using the `departure_Query.js` script provided with this module. Just edit the `departureStation` value and run the script.
+
+```
+// Enter your station name here:
+const departureStation = "Klingerweg";
+```
+
+Run in the modules folder
+
+```node departure_Query.js``` 
+
+… and you’ll get a result like this:
+
+```
+[ { line:
+     { id: '2',
+       name: 'Str    2',
+       class: 'StN',
+       operator: 'LVB',
+       direction: 'Naunhofer Straße' },
+    timetable: [ [Object], [Object], [Object], [Object] ] },
+
+*snipped a bit*
+
+  { line:
+     { id: '2',
+       name: 'Str    2',
+       class: 'StN',
+       operator: 'LVB',
+       direction: 'Meusdorf' },
+    timetable: [ [Object], [Object] ] } ]
+```
+
+Congratiulations! If you receive an answer like this your station name is known by the system. If not there is currently no way to make it work.
 
 
 ## Configuration
@@ -80,24 +125,24 @@ The module quite configurable. These are the possible options:
 
 |Option|Description|
 |---|---|
-|`name`|The name of the module instance (if you want multiple modules).<br><br>**Type:** `string`<br>|
-|`stationId`|The ID of the station. How to get the ID for your station is described below.<br><br>**Type:** `integer` This value is **Required**.|
-|`ignoredStations`|To allow appearance of multiple transportation methods, `vbb-hafas` returns departures of multiple stations in the area of the main station (including bus and tram stations for example). You can exclude those stations by adding them to this array. Usually, this can be empty.<br><br>**Type:** `integer array` (comma separated `integers` in the array).<br>**Default value:** `<empty>`|
-|`directionStationId`|If you want the module to show departures only in a specific direction, you can enter the ID of the next station on your line to specify the direction. <br><br> *Note: After some tests, the data delivery of this feature seems not to be as reliable as the normal version. Also, please make sure you actually have the right `stationId` for the direction station. Please check your MagicMirror log for errors before reporting them. <br> Additionally, more request results take more time for the request. So please make sure to keep your `maxUnreachableDepartures` and `maxReachabledepartures` low when using this feature.* <br><br> **Type:** `integer` <br>**Default value:** `nonexistent`|
-|`ignoredLines`|You can exclude different lines of a station by adding them to this array. Usually, this can be empty.<br><br>**Type:** `string array` (comma separated `strings` in the array).<br>**Default value:** `<empty>` <br>**Possible values:** All valid line names like `'U5'` (for subway) , `'M10'` or `'21'` (for tram), `'S75'` (for suburban) , `'200'`(for bus), etc.|
-|`excludedTransportationTypes`|Transportation types to be excluded from appearing on a module instance can be listed here.<br><br>**Type:** `string`, comma-separated list<br>**Default vaule:** `<empty>` <br>**Possible values:** `bus`, `tram`, `suburban`, `subway`, `regional`, `ferry`|
-|`marqueeLongDirections`|Makes a marquee/ticker text out of all direction descriptions with more than 25 characters. If this value is false, the descriptions are trimmed to the station names. You can see a video of it [here](https://ds.kayuk.de/kAfzU/) (rendered by a regular computer).<br><br> *Note: The rendering on the mirror is not perfect, but it is OK in my opinion. If the movement is not fluent enough for you, you should turn it off.*<br><br>**Type:** `boolean`<br>**Default vaule:** `true`|
-|`interval`|How often the module should be updated. The value is given in milliseconds.<br><br>**Type:** `integer`<br>**Default value:** `120000 // 2 minutes`|
-|`hidden`|Visibility of the module.<br><br>**Type:** `boolean`<br>**Default vaule:** `false`|
-|`delay`|How long does it take you to get from the mirror to the station? The value is given in minutes.<br><br>**Type:** `integer`<br>**Default vaule:** `10 // 10 minutes`|
-|`departureMinutes`|For how many minutes in the future should departures be fetched? If `delay` is set > 0, then this time will be added to `now() + delay`. (This could be obsolete in future versions but is needed for now.)<br><br>**Type:** `integer`<br>**Default vaule:** `10`|
-|`showColoredLineSymbols`|If you want the line colored and shaped or text only.<br><br>**Type:** `boolean`<br>**Default vaule:** `true`|
-|`useColorForRealtimeInfo`|Set colors for realtime information<br><br>**Type:** `boolean`<br>**Default vaule:** `true`|
-|`showTableHeaders`|Show or hides the table headers.<br><br>**Type:** `boolean`<br>**Default vaule:** `true`|
-|`showTableHeadersAsSymbols`|Show the table headers as text or symbols.<br><br>**Type:** `boolean`<br>**Default vaule:** `true`|
-|`maxUnreachableDepartures`|How many unreachable departures should be shown. Only necessary, of you set `delay` > 0<br><br>**Type:** `integer`<br>**Default vaule:** `3`|
-|`maxReachableDepartures`|How many reachable departures should be shown. If your `delay = 0`, this is the value for the number of departures you want to see.<br><br>**Type:** `integer`<br>**Default vaule:** `7`|
-|`fadeUnreachableDepartures`|Activates/deactivates fading for unreachable departures.<br><br>**Type:** `boolean`<br>**Default vaule:** `true`|
+|`hidden`                       |Visibility of the module.<br><br>**Type:** `boolean`<br>**Default vaule:** `false`|
+|`name`                         |The name of the module instance (if you want multiple modules).<br><br>**Type:** `string`<br>|
+|`stationName`                  |The name of the station you want the departures to be displayed for. (See [How to get the `stationId`](#How-to-get-the-stationId) above.)<br><br>**Type:** `string` This value is **REQUIRED**.<br>**Example:** `"Goerdelerring"`<br>**Default value:** `"Wilhelm-Leuschner-Platz"`<br><br>**Note:**If you provide a valid `stationId` this value is only used as the heading of the module. If you provide `99999` as `stationId` this name is used to actually query the API for departures from this station. |
+|`stationId`                    |The ID of the station. How to get the ID for your station is described [above](#How-to-get-the-stationId). <br><br>**Type:** `integer` This value is **REQUIRED**.<br>**Default value:** `"12992"`<br><br>**Note:** If your station doesn’t have an ID use `99999` here. The module will then use `stationName` for it’s queries. Make sure this will work (see [above](#unhappy-case)).|
+|`headerPrefix`                 |The text to be prepended to the station name in the module heading.<br><br>If you want the module heading to read “start at Goerdelerring“ you need to provide “start at“ as value for `headerPrefix`.<br><br>**Type:** `string`.<br>**Example:** `"start at"`<br>**Default value:** `""`<br><br>**Note:** A blank is always inserted between `headerPrefix` and `stationName`.|
+|`directions`           |The directions you want to be displayed.<br><br>**Type:** `string array`<br>**Example:** `[ "Mockau", "Lausen" ]`<br>**Default value:** `[]`<br><br>**Note:**If you are only interested in the departures in a certain direction provide **all** directions you want to be included. The direction is given as it is displayed on the buses or trams. Keep in mind that some lines can have multiple end stations. For instance the eastbound line of *Str 1* can end at *“Mockau, Post”* or *“Schönefeld”*. You need to include both values in `directions` to see both lines. For directions like *“Leipzig, Lausen”* it’s enough to include *“Lausen”* in the array.|
+|`ignoredLines`                 |The lines you don’t want to be displayed.<br>Add all lines you want to exclude to this array. <br><br>**Type:** `string array`<br>**Example:**`[ "Str 1", "Bus N1" ]`<br>**Default value:** `[]`<br>**Possible values:** All valid line names like `'Str 1'` (for tram) , `'Bus 89'`(for buses), `'S2'` (for suburban) , etc.|
+|`excludedTransportationTypes`  |Transportation types to be excluded from appearing on a module instance can be listed here.<br><br>**Type:** `string`<br>**Example:** `[ "StN", "Str" ]` (excludes all tram lines)<br>**Default vaule:** `[]` <br>**Possible values:** `BuN` (buses), `StN`, `Str` (trams), `s` (suburban)<br><br>**Note:** If you want to exclude tram lines make sure you list `StN` **and** `Str` since the API uses both values to denote a tram line.|
+|`marqueeLongDirections`        |Displays long direction descriptions as a scrolling text if set to `true`. If set to `false` long descriptions are trimmed.<br><br>**Type:** `boolean`<br>**Default vaule:** `true`<br><br> **Note:** If the rendering of the scrolling text is not smooth (especially on slow hardware like older Raspberry Pis) turn this feature off.|
+|`interval`                     |Determines how often the display should be updated. The value is given in seconds.<br><br>**Type:** `integer`<br>**Example:** `360` (6 minutes) <br>**Default value:** `120` (2 minutes)|
+|`timeToStation`                |The time in minutes it takes you to get to the specified station.<br><br>**Type:** `integer`<br>**Example:** `5`<br>**Default vaule:** `10` (10 minutes)|
+|`showColoredLineSymbols`       |Display the line symbol should with color (as used by the LVB) or not. If set to `false` the module will display gray labels.<br><br>**Type:** `boolean`<br>**Default vaule:** `true`|
+|`useColorForRealtimeInfo`      |Displays the realtime information in colors.<br><br>**Type:** `boolean`<br>**Default vaule:** `true`|
+|`showTableHeaders`             |Show the table headers for time, line and direction.<br><br>**Type:** `boolean`<br>**Default vaule:** `true`|
+|`showTableHeadersAsSymbols`    |Show the table headers as symbols.<br><br>**Type:** `boolean`<br>**Default vaule:** `true`|
+|`maxUnreachableDepartures` |How many unreachable departures should be shown. Only necessary, of you set `timeToStation` > 0<br><br>**Type:** `integer`<br>**Example:** `2` (Shows two departures althoug they couldn’t be reached according to your setting in `timeToStation`<br>**Default vaule:** `3`|
+|`maxReachableDepartures`   |How many reachable departures should be shown. If your `timeToStation = 0`, this is the value for the number of departures you want to see.<br><br>**Type:** `integer`<br>**Default vaule:** `7`|
+|`fadeUnreachableDepartures`    |Activates/deactivates fading for unreachable departures.<br><br>**Type:** `boolean`<br>**Default vaule:** `true`|
 |`fadeReachableDepartures`|Activates/deactivates fading for reachable departures.<br><br>**Type:** `boolean`<br>**Default vaule:** `true`|
 |`fadePointForReachableDepartures`|Fading point for reachable departures. Thìs value is also valid for `delay = 0` <br><br>**Type:** `float`<br>**Default vaule:** `0.5` <br>**Possible values:** `0.0 - 1.0`|
 
@@ -105,30 +150,27 @@ Here is an example of an entry in `config.js`:
 
 ``` JavaScript
 {
-    module: 'MMM-PublicTransportLeipzig',
-    position: 'top_right',
-    config: {
-        name: "Alexanderplatz",
-        stationId: 900000100003,
-        hidden: false,
-        ignoredStations: [900000100003,2342,1337],
-        ignoredLines: ['U5', 'U8', 'S75'],               
-        excludedTransportationTypes: 'bus,suburban,subway',   
-        delay: 10,
-        interval: 120000,
-        departureMinutes: 10,          
-        maxDepartures: 15,
-        marqueeLongDirections: true,
-        showColoredLineSymbols: true,  
-        useColorForRealtimeInfo: true,
-        showTableHeaders: true,
-        showTableHeadersAsSymbols: true,
-        maxUnreachableDepartures: 3,    
-        maxReachableDepartures: 7,
-        fadeUnreachableDepartures: true,
-        fadeReachableDepartures: true,
-        fadePointForReachableDepartures: 0.25
-    }
+  module: "MMM-PublicTransportLeipzig",
+  position: "bottom_right",
+  config: {
+    hidden: false,
+    stationName: "Wilhem-Leuschner-Platz",
+    stationId: "12992", 
+    directions: [ "Mockau", "Schönefeld", "Naunhofer", "Meusdorf" ],
+	 excludedTransportationTypes: [ "s" ], // no suburban trains will be shown
+    //ignoredLines: [ "Str 15" ],
+    timeToStation: 5,
+    interval: 120,
+    marqueeLongDirections: true,
+    showColoredLineSymbols: true,
+    useColorForRealtimeInfo: true,
+    showTableHeadersAsSymbols: false,
+    maxUnreachableDepartures: 2,
+    maxReachableDepartures: 7,
+    fadeUnreachableDepartures: true,
+    fadeReachableDepartures: true,
+    fadePointForReachableDepartures: 0.25
+  }
 },
 ```
 
@@ -139,7 +181,7 @@ Multiple instances of this module are possible. Just add another entry of the MM
 ## Special Thanks
 
 * [Michael Teeuw](https://github.com/MichMich) for inspiring me and many others to build a MagicMirror.
-* [Jannis Redmann](https://github.com/derhuerst) for creating the [vbb-hafas](https://github.com/derhuerst/vbb-hafas) REST API. 
+* [Julius Tens](https://github.com/juliuste) for creating the [lvb](https://github.com/juliuste/lvb) REST API for the virtually non existent LVB-API. 
 You made my life a lot easier with this!
 * The community of [magicmirror.builders](https://magicmirror.builders) for help in the development process and all contributors for finding and fixing errors in this module.
 
@@ -155,4 +197,4 @@ Stations without an assigned `stationID` can be used as starting points for the 
 
 ## Issues
 
-If you find any problems, bugs or have questions, please [open a GitHub issue](https://github.com/deg0nz/MMM-PublicTransportLeipzig/issues) in this repository.
+If you find any problems, bugs or have questions, please [open a GitHub issue](https://github.com/raywo/MMM-PublicTransportLeipzig/issues) in this repository.
