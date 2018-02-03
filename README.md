@@ -1,5 +1,13 @@
 # MMM-PublicTransportLeipzig
 
+[![license](https://img.shields.io/github/license/raywo/MMM-PublicTransportLeipzig.svg?style=flat)](LICENSE)
+[![Maintainability](https://api.codeclimate.com/v1/badges/3e024bb787c90747f29a/maintainability)](https://codeclimate.com/github/raywo/MMM-PublicTransportLeipzig/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/3e024bb787c90747f29a/test_coverage)](https://codeclimate.com/github/raywo/MMM-PublicTransportLeipzig/test_coverage)
+[![dependency status](https://img.shields.io/david/raywo/MMM-PublicTransportLeipzig.svg)](https://david-dm.org/raywo/MMM-PublicTransportLeipzig)
+[![Known Vulnerabilities](https://snyk.io/test/github/raywo/mmm-publictransportleipzig/badge.svg?targetFile=package.json)](https://snyk.io/test/github/raywo/mmm-publictransportleipzig?targetFile=package.json)
+[![chat on gitter](https://badges.gitter.im/raywo.svg)](https://gitter.im/raywo)
+
+
 MMM-PublicTransportLeipzig is a module for the [MagicMirror](https://github.com/MichMich/MagicMirror) project by 
 [Michael Teeuw](https://github.com/MichMich).
 
