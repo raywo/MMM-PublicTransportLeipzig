@@ -3,14 +3,14 @@
 MMM-PublicTransportLeipzig is a module for the [MagicMirror](https://github.com/MichMich/MagicMirror) project by 
 [Michael Teeuw](https://github.com/MichMich).
 
-It shows live public transport information for Leibzig based on LVB (Leipziger Verkehrsbetriebe) data.  
+It shows live public transport information for Leipzig based on LVB (Leipziger Verkehrsbetriebe) data.  
 MMM-PublicTransportLeipzig uses the [lvb](https://github.com/juliuste/lvb) REST API by [juliuste](https://github.com/juliuste).
 
 **Notes:** 
-*The module is working fine. But there are some known issues. (See [Known Issues](#Known-Issues).)*
+*The module is working fine. But there are some known issues. (See [Known Issues](#known-issues).)*
 
 ## How it works
-After you installed MMM-PublicTransportLeipzig you just configure it to your needs and that’s it. The only config you really need to set is the station you want to display. Everything else is covered by defaults but can be configured by you anyway. For instance you can enter a time you need to get to the station (``timeToStation`` in config). Then the module calculates the next reachable departures and draws a line between reachable and unreachable departures.
+After you installed MMM-PublicTransportLeipzig you just configure it to your needs and that’s it. The only config you really need to set is the station you want to display. Everything else is covered by defaults but can be configured by you anyway. For instance you can enter a time you need to get to the station (`timeToStation` in config). Then the module calculates the next reachable departures and draws a line between reachable and unreachable departures.
 
 For details see the [Configuration](#configuration) section.
 
@@ -18,7 +18,7 @@ For details see the [Configuration](#configuration) section.
 
 ![Example for Wilhelm-Leuschner-Platz with time to station](img/MMM-PublicTransport_screenshot.png)
 
-The screenshot shows departures from Wilhelm-Leuschner-Platz where the first two are not reachable due to the ``timeToStation`` setting.
+The screenshot shows departures from Wilhelm-Leuschner-Platz where the first two are not reachable due to the `timeToStation` setting.
 
 ## Preconditions
 
@@ -28,7 +28,7 @@ The screenshot shows departures from Wilhelm-Leuschner-Platz where the first two
 
 ## Installation
 
-Just clone the module into your MagicMirror modules folder and execute `npm install` in the module's directory:
+Just clone the module into your MagicMirror modules folder and execute `npm install` in the module’s directory:
 
 ```
 git clone https://github.com/raywo/MMM-PublicTransportLeipzig.git
@@ -38,7 +38,7 @@ npm install
 
 ## Update
 
-Just enter your MMM-PublicTransportLeipzig folder in the MagicMirror's modules folder and execute the following commands in the module's directory:
+Just enter your MMM-PublicTransportLeipzig folder in the MagicMirror’s modules folder and execute the following commands in the module’s directory:
 
 ```
 git pull
@@ -49,7 +49,7 @@ npm install
 
 ### Happy case
 
-You can provide a station name or a station ID to define your departure station. If your station has a `stationID` it is recommended to use it. If not you can be lucky and get away with just providing the station name. (See [Known Issues](#Knwon-Issues).)
+You can provide a station name or a station ID to define your departure station. If your station has a `stationID` it is recommended to use it. If not you can be lucky and get away with just providing the station name. (See [Known Issues](#knwon-issues).)
 
 For your convenience there is a script in the MMM-PublicTransportLeipzig folder you can edit and execute to get the `stationID` for your station.
 
@@ -124,14 +124,14 @@ Congratiulations! If you receive an answer like this your station name is known 
 The module quite configurable. These are the possible options:
 
 |Option|Description|
-|---|---|
+|-------------------------------|--------------------------------------------------|
 |`hidden`                       |Visibility of the module.<br><br>**Type:** `boolean`<br>**Default vaule:** `false`|
 |`name`                         |The name of the module instance (if you want multiple modules).<br><br>**Type:** `string`<br>|
-|`stationName`                  |The name of the station you want the departures to be displayed for. (See [How to get the `stationId`](#How-to-get-the-stationId) above.)<br><br>**Type:** `string` This value is **REQUIRED**.<br>**Example:** `"Goerdelerring"`<br>**Default value:** `"Wilhelm-Leuschner-Platz"`<br><br>**Note:**If you provide a valid `stationId` this value is only used as the heading of the module. If you provide `99999` as `stationId` this name is used to actually query the API for departures from this station. |
-|`stationId`                    |The ID of the station. How to get the ID for your station is described [above](#How-to-get-the-stationId). <br><br>**Type:** `integer` This value is **REQUIRED**.<br>**Default value:** `"12992"`<br><br>**Note:** If your station doesn’t have an ID use `99999` here. The module will then use `stationName` for it’s queries. Make sure this will work (see [above](#unhappy-case)).|
-|`headerPrefix`                 |The text to be prepended to the station name in the module heading.<br><br>If you want the module heading to read “start at Goerdelerring“ you need to provide “start at“ as value for `headerPrefix`.<br><br>**Type:** `string`.<br>**Example:** `"start at"`<br>**Default value:** `""`<br><br>**Note:** A blank is always inserted between `headerPrefix` and `stationName`.|
-|`directions`           |The directions you want to be displayed.<br><br>**Type:** `string array`<br>**Example:** `[ "Mockau", "Lausen" ]`<br>**Default value:** `[]`<br><br>**Note:**If you are only interested in the departures in a certain direction provide **all** directions you want to be included. The direction is given as it is displayed on the buses or trams. Keep in mind that some lines can have multiple end stations. For instance the eastbound line of *Str 1* can end at *“Mockau, Post”* or *“Schönefeld”*. You need to include both values in `directions` to see both lines. For directions like *“Leipzig, Lausen”* it’s enough to include *“Lausen”* in the array.|
-|`ignoredLines`                 |The lines you don’t want to be displayed.<br>Add all lines you want to exclude to this array. <br><br>**Type:** `string array`<br>**Example:**`[ "Str 1", "Bus N1" ]`<br>**Default value:** `[]`<br>**Possible values:** All valid line names like `'Str 1'` (for tram) , `'Bus 89'`(for buses), `'S2'` (for suburban) , etc.|
+|`stationName`                  |The name of the station you want the departures to be displayed for. (See [How to get the `stationId`](#how-to-get-the-stationid) above.)<br><br>**Type:** `string` This value is **REQUIRED**.<br>**Example:** `"Goerdelerring"`<br>**Default value:** `"Wilhelm-Leuschner-Platz"`<br><br>**Note:** If you provide a valid `stationId` this value is only used as the heading of the module. If you provide `99999` as `stationId` this name is used to actually query the API for departures from this station. |
+|`stationId`                    |The ID of the station. How to get the ID for your station is described [above](#how-to-get-the-stationid). <br><br>**Type:** `integer` This value is **REQUIRED**.<br>**Default value:** `"12992"`<br><br>**Note:** If your station doesn’t have an ID use `99999` here. The module will then use `stationName` for it’s queries. Make sure this will work (see [above](#unhappy-case)).|
+|`headerPrefix`                 |The text to be prepended to the station name in the module heading.<br><br>If you want the module heading to read “start at Goerdelerring” you need to provide “start at” as value for `headerPrefix`.<br><br>**Type:** `string`.<br>**Example:** `"start at"`<br>**Default value:** `""`<br><br>**Note:** A blank is always inserted between `headerPrefix` and `stationName`.|
+|`directions`           |The directions you want to be displayed.<br><br>**Type:** `string array`<br>**Example:** `[ "Mockau", "Lausen" ]`<br>**Default value:** `[]`<br><br>**Note:** If you are only interested in the departures in a certain direction provide **all** directions you want to be included. The direction is given as it is displayed on the buses or trams. Keep in mind that some lines can have multiple end stations. For instance the eastbound line of *Str 1* can end at *“Mockau, Post”* or *“Schönefeld”*. You need to include both values in `directions` to see both lines. For directions like *“Leipzig, Lausen”* it’s enough to include *“Lausen”* in the array.|
+|`ignoredLines`                 |The lines you don’t want to be displayed.<br>Add all lines you want to exclude to this array. <br><br>**Type:** `string array`<br>**Example:** `[ "Str 1", "Bus N1" ]`<br>**Default value:** `[]`<br>**Possible values:** All valid line names like `'Str 1'` (for tram) , `'Bus 89'`(for buses), `'S2'` (for suburban) , etc.|
 |`excludedTransportationTypes`  |Transportation types to be excluded from appearing on a module instance can be listed here.<br><br>**Type:** `string`<br>**Example:** `[ "StN", "Str" ]` (excludes all tram lines)<br>**Default vaule:** `[]` <br>**Possible values:** `BuN` (buses), `StN`, `Str` (trams), `s` (suburban)<br><br>**Note:** If you want to exclude tram lines make sure you list `StN` **and** `Str` since the API uses both values to denote a tram line.|
 |`marqueeLongDirections`        |Displays long direction descriptions as a scrolling text if set to `true`. If set to `false` long descriptions are trimmed.<br><br>**Type:** `boolean`<br>**Default vaule:** `true`<br><br> **Note:** If the rendering of the scrolling text is not smooth (especially on slow hardware like older Raspberry Pis) turn this feature off.|
 |`interval`                     |Determines how often the display should be updated. The value is given in seconds.<br><br>**Type:** `integer`<br>**Example:** `360` (6 minutes) <br>**Default value:** `120` (2 minutes)|
