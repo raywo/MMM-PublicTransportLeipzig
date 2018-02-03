@@ -1,5 +1,7 @@
 # MMM-PublicTransportLeipzig
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/raywo/MMM-PublicTransportLeipzig.svg)](https://greenkeeper.io/)
+
 [![license](https://img.shields.io/github/license/raywo/MMM-PublicTransportLeipzig.svg?style=flat)](LICENSE)
 [![Maintainability](https://api.codeclimate.com/v1/badges/3e024bb787c90747f29a/maintainability)](https://codeclimate.com/github/raywo/MMM-PublicTransportLeipzig/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/3e024bb787c90747f29a/test_coverage)](https://codeclimate.com/github/raywo/MMM-PublicTransportLeipzig/test_coverage)
