@@ -1,22 +1,21 @@
 # MMM-PublicTransportLeipzig
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/raywo/MMM-PublicTransportLeipzig.svg)](https://greenkeeper.io/)
-
 [![license](https://img.shields.io/github/license/raywo/MMM-PublicTransportLeipzig.svg?style=flat)](LICENSE)
 [![Maintainability](https://api.codeclimate.com/v1/badges/3e024bb787c90747f29a/maintainability)](https://codeclimate.com/github/raywo/MMM-PublicTransportLeipzig/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/3e024bb787c90747f29a/test_coverage)](https://codeclimate.com/github/raywo/MMM-PublicTransportLeipzig/test_coverage)
+[![Greenkeeper badge](https://badges.greenkeeper.io/raywo/MMM-PublicTransportLeipzig.svg)](https://greenkeeper.io/)
 [![dependency status](https://img.shields.io/david/raywo/MMM-PublicTransportLeipzig.svg)](https://david-dm.org/raywo/MMM-PublicTransportLeipzig)
 [![Known Vulnerabilities](https://snyk.io/test/github/raywo/mmm-publictransportleipzig/badge.svg?targetFile=package.json)](https://snyk.io/test/github/raywo/mmm-publictransportleipzig?targetFile=package.json)
 [![chat on gitter](https://badges.gitter.im/raywo.svg)](https://gitter.im/raywo)
 
 
-MMM-PublicTransportLeipzig is a module for the [MagicMirror](https://github.com/MichMich/MagicMirror) project by 
+MMM-PublicTransportLeipzig is a module for the [MagicMirror](https://github.com/MichMich/MagicMirror) project by
 [Michael Teeuw](https://github.com/MichMich).
 
 It shows live public transport information for Leipzig based on LVB (Leipziger Verkehrsbetriebe) data.  
 MMM-PublicTransportLeipzig uses the [lvb](https://github.com/juliuste/lvb) REST API by [juliuste](https://github.com/juliuste).
 
-**Notes:** 
+**Notes:**
 *The module is working fine. But there are some known issues. (See [Known Issues](#known-issues).)*
 
 ## How it works
@@ -63,14 +62,14 @@ You can provide a station name or a station ID to define your departure station.
 
 For your convenience there is a script in the MMM-PublicTransportLeipzig folder you can edit and execute to get the `stationID` for your station.
 
-Find the file `stationID_Query.js` and edit the second line and fill in the name of your station: 
+Find the file `stationID_Query.js` and edit the second line and fill in the name of your station:
 
 ```
 // Enter your station name here:
 const stationName = "Goerdelerring";
 ```
 
-Then run the script inside the module folder using 
+Then run the script inside the module folder using
 
 ```
 node stationID_Query.js
@@ -102,7 +101,7 @@ const departureStation = "Klingerweg";
 
 Run in the modules folder
 
-```node departure_Query.js``` 
+```node departure_Query.js```
 
 … and you’ll get a result like this:
 
@@ -165,7 +164,7 @@ Here is an example of an entry in `config.js`:
   config: {
     hidden: false,
     stationName: "Wilhem-Leuschner-Platz",
-    stationId: "12992", 
+    stationId: "12992",
     directions: [ "Mockau", "Schönefeld", "Naunhofer", "Meusdorf" ],
 	 excludedTransportationTypes: [ "s" ], // no suburban trains will be shown
     //ignoredLines: [ "Str 15" ],
@@ -191,7 +190,7 @@ Multiple instances of this module are possible. Just add another entry of the MM
 ## Special Thanks
 
 * [Michael Teeuw](https://github.com/MichMich) for inspiring me and many others to build a MagicMirror.
-* [Julius Tens](https://github.com/juliuste) for creating the [lvb](https://github.com/juliuste/lvb) REST API for the virtually non existent LVB-API. 
+* [Julius Tens](https://github.com/juliuste) for creating the [lvb](https://github.com/juliuste/lvb) REST API for the virtually non existent LVB-API.
 You made my life a lot easier with this!
 * The community of [magicmirror.builders](https://magicmirror.builders) for help in the development process and all contributors for finding and fixing errors in this module.
 
