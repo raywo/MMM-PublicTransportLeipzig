@@ -1,7 +1,5 @@
 "use strict";
 
-let domCreator;
-
 Module.register("MMM-PublicTransportLeipzig", {
 
   // default values
@@ -43,7 +41,7 @@ Module.register("MMM-PublicTransportLeipzig", {
 
     setInterval(() => {
       this.sendSocketNotification('GET_DEPARTURES', this.config.stationId);
-    }, this.config.interval * 1000)
+    }, this.config.interval * 1000);
   },
 
 
@@ -68,7 +66,7 @@ Module.register("MMM-PublicTransportLeipzig", {
 
 
   getDom: function () {
-    let domCreator = new DomCreator(this.config, this.error, this.departuresArray);
+    let domCreator = new DomCreator(this.config, this.departuresArray);
 
     if (this.isInitializing()) {
       let message = this.translate("LOADING");
@@ -77,10 +75,10 @@ Module.register("MMM-PublicTransportLeipzig", {
     }
 
     if (this.hasErrors()) {
-      let message = this.translate("LVB_FETCH_ERROR", { "errorMessage": JSON.stringify(this.error.message) }) +
-                    "<br>" + this.translate("LVB_ERROR_HINT");
+      let message = this.translate("LVB_FETCH_ERROR", { "errorMessage": JSON.stringify(this.error.message) });
+      let hint = this.translate("LVB_ERROR_HINT");
 
-      return domCreator.getErrorDom(message);
+      return domCreator.getErrorDom(this.stationName, message, hint);
     }
 
     let headings = {
@@ -90,7 +88,7 @@ Module.register("MMM-PublicTransportLeipzig", {
       direction: this.translate("LVB_TO")
     };
 
-    let noDeparturesMessage = this.translate("LVB_NO_DEPARTURES")
+    let noDeparturesMessage = this.translate("LVB_NO_DEPARTURES");
 
     return domCreator.getDom(this.stationName, headings, noDeparturesMessage);
   },
@@ -128,9 +126,10 @@ Module.register("MMM-PublicTransportLeipzig", {
     };
   },
 
+
   socketNotificationReceived: function (notification, payload) {
     if (notification === 'FETCHER_INIT') {
-      if (payload.stationId === this.config.stationId) {
+      if (this.isThisStation(payload)) {
         this.stationName = payload.stationName;
         this.loaded = true;
       }
@@ -139,7 +138,7 @@ Module.register("MMM-PublicTransportLeipzig", {
     if (notification === 'DEPARTURES') {
       this.config.loaded = true;
 
-      if (payload.stationId === this.config.stationId) {
+      if (this.isThisStation(payload)) {
         // Empty error object
         this.error = {};
         // Proceed with normal operation
@@ -150,11 +149,16 @@ Module.register("MMM-PublicTransportLeipzig", {
 
     if (notification === 'FETCH_ERROR') {
       this.config.loaded = true;
-      if (payload.stationId === this.config.stationId) {
+      if (this.isThisStation(payload)) {
         // Empty error object
         this.error = payload;
         this.updateDom(3000);
       }
     }
-  }
+  },
+
+
+  isThisStation: function (stationId) {
+    return stationId.stationId === this.config.stationId;
+  },
 });

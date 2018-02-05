@@ -124,7 +124,7 @@ function getDelay(departureTime) {
   let delay = departureTime.departureDelay;
 
   if (!delay) {
-    delay = 0
+    delay = 0;
   } else {
     delay = delay / 1000 / 60;
   }
@@ -141,10 +141,10 @@ function compareTimes(a, b) {
     return -1;
   }
   if (timeA > timeB) {
-    return 1
+    return 1;
   }
 
-  return 0
+  return 0;
 }
 
 

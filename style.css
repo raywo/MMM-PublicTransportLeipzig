@@ -57,19 +57,19 @@
   white-space: nowrap;
   padding-left: 100%;
   text-indent: 0;
-  animation: marquee 15s linear infinite;
+  animation: marquee 5s linear infinite alternate;
 }
 
 .marqueeStop {
-  animation-play-state: paused
+  animation-play-state: paused;
 }
 
 @keyframes marquee {
   0% {
-    transform: translate(0, 0);
+    transform: translate(-30%, 0);
   }
   100% {
-    transform: translate(-100%, 0);
+    transform: translate(-60%, 0);
   }
 }
 

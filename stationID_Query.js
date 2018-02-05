@@ -2,7 +2,7 @@
 const stationName = "Goerdelerring";
 
 // Don’t edit anything beyond this point.
-const stations = require('lvb').stations
+const stations = require('lvb').stations;
 stations(stationName).then((response) => {
   console.log("stationID for: " + stationName);
   console.log(response);

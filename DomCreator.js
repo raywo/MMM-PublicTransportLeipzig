@@ -1,9 +1,8 @@
 "use strict";
 
 class DomCreator {
-  constructor(config, error, departuresArray) {
+  constructor(config, departuresArray) {
     this.config = config;
-    this.error = error;
     this.departuresArray = departuresArray;
   }
 
@@ -17,12 +16,12 @@ class DomCreator {
   }
 
 
-  getErrorDom(message) {
+  getErrorDom(stationName, message, hint) {
     let wrapper = this.getWrapper();
-    wrapper.appendChild(this.createHeadingElement());
+    wrapper.appendChild(this.createHeadingElement(this.config.headerPrefix, stationName));
 
     let errorContent = document.createElement("div");
-    errorContent.innerHTML = message;
+    errorContent.innerHTML = message + "<br>" + hint;
     errorContent.className = "small light dimmed";
 
     wrapper.appendChild(errorContent);
@@ -205,17 +204,7 @@ class DomCreator {
       if (i >= reachableDeparturePos - this.config.maxUnreachableDepartures
         && i < reachableDeparturePos + this.config.maxReachableDepartures) {
 
-        // insert ruler to separate reachable departures
-        if (i === reachableDeparturePos && reachableDeparturePos !== 0 && this.config.maxUnreachableDepartures !== 0) {
-          let rulerRow = document.createElement("tr");
-
-          let rulerCell = document.createElement("td");
-          rulerCell.colSpan = 4;
-          rulerCell.className = "rulerCell";
-          rulerRow.appendChild(rulerCell);
-
-          tBody.appendChild(rulerRow);
-        }
+        this.insertRuler(tBody, i, reachableDeparturePos);
 
         // create standard row
         let row = this.createRow(currentDeparture);
@@ -236,6 +225,21 @@ class DomCreator {
         tBody.appendChild(row);
       }
     });
+  }
+
+
+  // insert ruler to separate reachable departures
+  insertRuler(tBody, i, reachableDeparturePos) {
+    if (i === reachableDeparturePos && reachableDeparturePos !== 0 && this.config.maxUnreachableDepartures !== 0) {
+      let rulerRow = document.createElement("tr");
+
+      let rulerCell = document.createElement("td");
+      rulerCell.colSpan = 4;
+      rulerCell.className = "rulerCell";
+      rulerRow.appendChild(rulerCell);
+
+      tBody.appendChild(rulerRow);
+    }
   }
 
 
@@ -315,22 +319,23 @@ class DomCreator {
     let delayCell = document.createElement("td");
     delayCell.className = "delayTimeCell";
 
-    if (delay > 0) {
-      delayCell.innerHTML = "+" + delay + " ";
-      if (this.config.useColorForRealtimeInfo) {
-        delayCell.style.color = "red";
-      }
-    } else if (delay < 0) {
-      delayCell.innerHTML = "-" + delay + " ";
-      if (this.config.useColorForRealtimeInfo) {
-        delayCell.style.color = "green";
-      }
-    } else if (delay === 0) {
+    if (delay === 0) {
       delayCell.innerHTML = "";
+
+      return delayCell;
+    }
+
+    let sign = delay <= 0 ? "-" : "+";
+    let color = delay <= 0 ? "green" : "red";
+
+    delayCell.innerHTML = sign + delay + " ";
+
+    if (this.config.useColorForRealtimeInfo) {
+      delayCell.style.color = color;
     }
 
     return delayCell;
-  };
+  }
 
 
   // Create a cell for the departures table for the line column.
