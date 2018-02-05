@@ -149,6 +149,7 @@ Module.register("MMM-PublicTransportLeipzig", {
 
     if (notification === 'FETCH_ERROR') {
       this.config.loaded = true;
+
       if (this.isThisStation(payload)) {
         // Empty error object
         this.error = payload;

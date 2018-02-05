@@ -134,9 +134,9 @@ class DomCreator {
   populateHeaderCell(cell, iconClass, text) {
     if (this.config.showTableHeadersAsSymbols) {
       cell.className = "centeredTd";
-      let timeIcon = document.createElement("span");
-      timeIcon.className = iconClass;
-      cell.appendChild(timeIcon);
+      let iconSpan = document.createElement("span");
+      iconSpan.className = iconClass;
+      cell.appendChild(iconSpan);
 
     } else {
       cell.innerHTML = text;
