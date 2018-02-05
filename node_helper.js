@@ -5,7 +5,7 @@ const LvbFetcher = require('./LvbFetcher');
 module.exports = NodeHelper.create({
 
   start: function () {
-    this.departuresFetchers = []
+    this.departuresFetchers = [];
   },
 
 
