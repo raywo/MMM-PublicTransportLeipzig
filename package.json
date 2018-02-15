@@ -1,6 +1,6 @@
 {
   "name": "MMM-PublicTransportLeipzig",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "LVB-client driven public transport module for MagicMirror 2.",
   "repository": {
     "type": "git",

@@ -15,8 +15,10 @@ MMM-PublicTransportLeipzig is a module for the [MagicMirror](https://github.com/
 It shows live public transport information for Leipzig based on LVB (Leipziger Verkehrsbetriebe) data.  
 MMM-PublicTransportLeipzig uses the [lvb](https://github.com/juliuste/lvb) REST API by [juliuste](https://github.com/juliuste).
 
-**Notes:**
-*The module is working fine. But there are some known issues. (See [Known Issues](#known-issues).)*
+## Notes
+The module is working fine. But there are some known issues. (See [Known Issues](#known-issues).)
+
+If you would like a more stable version please check out [MMM-PublicTransportHafas](https://github.com/raywo/MMM-PublicTransportHafas). This module uses data from the [hafas-client](https://github.com/derhuerst/hafas-client) which is much more reliable than the lvb REST API and has live information too. MMM-PublicTransportHafas comes preconfigured for Leipzig.
 
 ## How it works
 After you installed MMM-PublicTransportLeipzig you just configure it to your needs and that’s it. The only config you really need to set is the station you want to display. Everything else is covered by defaults but can be configured by you anyway. For instance you can enter a time you need to get to the station (`timeToStation` in config). Then the module calculates the next reachable departures and draws a line between reachable and unreachable departures.
@@ -201,6 +203,7 @@ The API the LVB (Leipziger Verkehrsbetriebe) provides is very basic and has some
 * Not all stations have a `stationID` assigned (for instance “Klingerweg”).
 * Some stations are stored with unusal names. For instance “Nonnenstraße” is stored as “Nonnenstr.”
 * Most station which are also suburban (S-Bahn) or long distance train stops cannot be queried.
+* The API produces quite often errors because of being not reachable or sending data in the wrong format.
 
 Stations without an assigned `stationID` can be used as starting points for the module as long as a query for their name returns a single result. In the example above “Klingerweg” has no `stationID` assigned but a stations query for “Klingerweg” returns just one result so it can be used. On the other hand it is not possible to set “Hauptbahnhof” as a starting point for the module. Since “Hauptbahnhof” has no `stationID` assigned and a station query returns multiple results.
 
