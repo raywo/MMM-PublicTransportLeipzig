@@ -31,6 +31,6 @@
   "dependencies": {
     "lodash.isobject": "^3.0.2",
     "lvb": "0.0.2",
-    "stylelint": "^9.0.0"
+    "stylelint": "^11.1.0"
   }
 }
