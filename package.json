@@ -30,7 +30,13 @@
   },
   "dependencies": {
     "lodash.isobject": "^3.0.2",
-    "lvb": "0.0.2",
-    "stylelint": "^9.0.0"
-  }
+    "lvb": "1.0.0",
+    "stylelint": "^14.0.0",
+    "@snyk/protect": "latest"
+  },
+  "scripts": {
+    "prepare": "npm run snyk-protect",
+    "snyk-protect": "snyk-protect"
+  },
+  "snyk": true
 }
