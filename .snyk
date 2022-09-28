@@ -1,0 +1,15 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.25.0
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  'npm:extend:20180424':
+    - stylelint > postcss-html > remark > unified > extend:
+        patched: '2022-09-28T22:35:55.888Z'
+  SNYK-JS-LODASH-567746:
+    - stylelint > lodash:
+        patched: '2022-09-28T22:35:55.888Z'
+    - stylelint > postcss-reporter > lodash:
+        patched: '2022-09-28T22:35:55.888Z'
+    - stylelint > table > lodash:
+        patched: '2022-09-28T22:35:55.888Z'
